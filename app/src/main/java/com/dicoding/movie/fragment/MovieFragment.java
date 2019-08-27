@@ -11,10 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dicoding.movie.base.BaseFragment;
 import com.dicoding.movie.R;
 import com.dicoding.movie.adapter.MovieAdapter;
-import com.dicoding.movie.model.MovieItems;
+import com.dicoding.movie.base.BaseFragment;
+import com.dicoding.movie.model.MovieItem;
 import com.dicoding.movie.model.MovieResponse;
 import com.dicoding.movie.network.MovieData;
 import com.dicoding.movie.network.MovieDataCallback;
@@ -23,12 +23,14 @@ import java.util.ArrayList;
 
 public class MovieFragment extends BaseFragment implements MovieDataCallback {
 
-    private ArrayList<MovieItems> movieItems = new ArrayList<>();
+    private ArrayList<MovieItem> movieItems = new ArrayList<>();
     private MovieAdapter movieAdapter;
 
-    @Nullable
+    public MovieFragment() {
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_movie, container, false);
     }
 

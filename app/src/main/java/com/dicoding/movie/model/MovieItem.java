@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MovieItems implements Parcelable {
+public class MovieItem implements Parcelable {
 
     @SerializedName("title")
     private String title;
@@ -22,7 +22,7 @@ public class MovieItems implements Parcelable {
     @SerializedName("vote_average")
     private double voteAverage;
 
-    MovieItems(Parcel in) {
+    MovieItem(Parcel in) {
         title = in.readString();
         posterPath = in.readString();
         backdropPath = in.readString();
@@ -30,15 +30,15 @@ public class MovieItems implements Parcelable {
         voteAverage = in.readDouble();
     }
 
-    public static final Creator<MovieItems> CREATOR = new Creator<MovieItems>() {
+    public static final Creator<MovieItem> CREATOR = new Creator<MovieItem>() {
         @Override
-        public MovieItems createFromParcel(Parcel in) {
-            return new MovieItems(in);
+        public MovieItem createFromParcel(Parcel in) {
+            return new MovieItem(in);
         }
 
         @Override
-        public MovieItems[] newArray(int size) {
-            return new MovieItems[size];
+        public MovieItem[] newArray(int size) {
+            return new MovieItem[size];
         }
     };
 

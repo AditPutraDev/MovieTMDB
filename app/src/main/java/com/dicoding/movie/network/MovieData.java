@@ -14,7 +14,7 @@ public class MovieData {
     public static final String URL_TOP_RATED = BuildConfig.BASE_URL_TMDB + "top_rated?api_key={apiKey}&language=en-US&page=1";
     public static final String URL_NOW_PLAYING = BuildConfig.BASE_URL_TMDB + "now_playing?api_key={apiKey}&language=en-US&page=1";
     public static final String URL_UP_COMING = BuildConfig.BASE_URL_TMDB + "upcoming?api_key={apiKey}&language=en-US&page=1";
-    public static final String URL_POPULAR = BuildConfig.BASE_URL_TMDB + "popular?api_key={apiKey}&language=en-US&page=1";
+    public static final String URL_POPULAR = BuildConfig.BASE_URL_TMDB + "movie?api_key={apiKey}&language=en-US&page=1";
 
     public void getMovies(String movieEndpoint, final MovieDataCallback callback) {
         AndroidNetworking.get(movieEndpoint)
