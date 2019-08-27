@@ -1,15 +1,27 @@
-package com.dicoding.movie;
+package com.dicoding.movie.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.dicoding.movie.MainViewModel;
+import com.dicoding.movie.R;
+import com.dicoding.movie.adapter.MovieAdapter;
 import com.dicoding.movie.fragment.MovieFragment;
 import com.dicoding.movie.fragment.TVShowFragment;
+import com.dicoding.movie.model.MovieItems;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -4,69 +4,56 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dicoding.movie.MainViewModel;
 import com.dicoding.movie.R;
 import com.dicoding.movie.adapter.MovieAdapter;
-import com.dicoding.movie.base.BaseFragment;
-import com.dicoding.movie.model.MovieItem;
-import com.dicoding.movie.model.MovieResponse;
-import com.dicoding.movie.network.MovieData;
-import com.dicoding.movie.network.MovieDataCallback;
+import com.dicoding.movie.model.MovieItems;
 
 import java.util.ArrayList;
 
-public class MovieFragment extends BaseFragment implements MovieDataCallback {
+public class MovieFragment extends Fragment {
+    private RecyclerView rv;
+    private MovieAdapter adapter;
+    private MainViewModel mainViewModel;
 
-    private ArrayList<MovieItem> movieItems = new ArrayList<>();
-    private MovieAdapter movieAdapter;
-
-    public MovieFragment() {
-    }
-
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_movie, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rv = view.findViewById(R.id.rvMovies);
+        showRecyclerList();
+    }
 
-        movieAdapter = new MovieAdapter(movieItems);
+    private void showRecyclerList() {
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new MovieAdapter();
+        adapter.notifyDataSetChanged();
+        rv.setAdapter(adapter);
 
-        RecyclerView movieList = view.findViewById(R.id.rvMovies);
-        movieList.setHasFixedSize(true);
-        movieList.setLayoutManager(new LinearLayoutManager(getContext()));
-        movieList.setAdapter(movieAdapter);
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        mainViewModel.getMovies().observe(this, getMovie);
+    }
 
-        if (savedInstanceState == null) {
-            getMovieData().getMovies(MovieData.URL_NOW_PLAYING, this);
-        } else {
-            movieItems = savedInstanceState.getParcelableArrayList(KEY_MOVIES);
-            movieAdapter.refill(movieItems);
+    private Observer<ArrayList<MovieItems>> getMovie = new Observer<ArrayList<MovieItems>>() {
+        @Override
+        public void onChanged(ArrayList<MovieItems> movieItems) {
+            if (movieItems != null) {
+                adapter.setDataMovie(movieItems);
+            }
         }
-    }
-
-    @Override
-    public void onSuccess(MovieResponse movieResponse) {
-        movieItems = movieResponse.getResult();
-        movieAdapter.refill(movieItems);
-    }
-
-    @Override
-    public void onFailed(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putParcelableArrayList(KEY_MOVIES, movieItems);
-        super.onSaveInstanceState(outState);
-    }
+    };
 }

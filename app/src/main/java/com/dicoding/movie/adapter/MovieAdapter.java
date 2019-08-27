@@ -7,10 +7,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.movie.R;
-import com.dicoding.movie.model.MovieItem;
+import com.dicoding.movie.model.MovieItems;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -18,78 +19,53 @@ import java.util.ArrayList;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+    private ArrayList<MovieItems> dataMovie = new ArrayList<>();
 
-    private ArrayList<MovieItem> movieItems;
-
-    public MovieAdapter(ArrayList<MovieItem> movieItems) {
-        this.movieItems = movieItems;
-    }
-
-    public void refill(ArrayList<MovieItem> movieItems) {
-        this.movieItems = new ArrayList<>();
-        this.movieItems.addAll(movieItems);
+    public void setDataMovie(ArrayList<MovieItems> items) {
+        dataMovie.clear();
+        dataMovie.addAll(items);
         notifyDataSetChanged();
     }
 
-    @NonNull
+    @Nullable
     @Override
-    public MovieHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.items, viewGroup, false);
-        return new MovieHolder(v);
+    public MovieViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.items, viewGroup, false);
+        return new MovieViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieHolder movieHolder, int i) {
-        movieHolder.onBind(movieItems.get(i));
+    public void onBindViewHolder(MovieViewHolder movieViewHolder, int i) {
+        movieViewHolder.bind(dataMovie.get(i));
     }
 
     @Override
     public int getItemCount() {
-        return movieItems.size();
+        return dataMovie.size();
     }
 
-    class MovieHolder extends RecyclerView.ViewHolder {
+    class MovieViewHolder extends RecyclerView.ViewHolder {
+        ImageView posterPath, backdropPath;
+        TextView title, release;
 
-        private TextView tvTitle, tvDateRelease, tvVote;
-        private ImageView ivPoster, ivBackdrop;
-
-        MovieHolder(@NonNull View itemView) {
+        MovieViewHolder(View itemView) {
             super(itemView);
-
-            tvTitle = itemView.findViewById(R.id.item_title);
-            tvDateRelease = itemView.findViewById(R.id.item_date_release);
-            tvVote = itemView.findViewById(R.id.item_vote);
-
-            ivPoster = itemView.findViewById(R.id.item_poster);
-            ivBackdrop = itemView.findViewById(R.id.item_backdrop);
+            title = itemView.findViewById(R.id.item_title);
+            release = itemView.findViewById(R.id.item_date_release);
+            posterPath = itemView.findViewById(R.id.item_poster);
+            backdropPath = itemView.findViewById(R.id.item_backdrop);
         }
 
-        void onBind(MovieItem item) {
-            if (item.getPosterPath() != null && !item.getPosterPath().isEmpty()) {
-                Picasso.get().load(item.getPosterPath()).transform(new CropCircleTransformation()).into(ivPoster);
+        void bind(MovieItems movieItems) {
+            title.setText(movieItems.getTitle());
+            release.setText(movieItems.getRelease());
+            if (movieItems.getPosterPath() != null && !movieItems.getPosterPath().isEmpty()) {
+                Picasso.get().load(movieItems.getPosterPath()).transform(new CropCircleTransformation()).into(posterPath);
             }
 
-            if (item.getBackdropPath() != null && !item.getBackdropPath().isEmpty()) {
-                Picasso.get().load(item.getPosterPath()).transform(new BlurTransformation(itemView.getContext(), 20)).into(ivBackdrop);
-            }
-
-            String title = checkTextIfNull(item.getTitle());
-            if (title.length() > 30) {
-                tvTitle.setText(String.format("%s...", title.substring(0, 29)));
-            } else {
-                tvTitle.setText(checkTextIfNull(item.getTitle()));
-            }
-
-            tvDateRelease.setText(checkTextIfNull(item.getReleaseDate()));
-            tvVote.setText(checkTextIfNull("" + item.getVoteAverage()));
-        }
-
-        String checkTextIfNull(String text) {
-            if (text != null && !text.isEmpty()) {
-                return text;
-            } else {
-                return "-";
+            if (movieItems.getBackdropPath() != null && !movieItems.getBackdropPath().isEmpty()) {
+                Picasso.get().load(movieItems.getPosterPath()).transform(new BlurTransformation(itemView.getContext(), 20)).into(backdropPath);
             }
         }
     }
