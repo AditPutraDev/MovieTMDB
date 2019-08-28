@@ -12,18 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.movie.R;
-import com.dicoding.movie.adapter.MovieAdapter;
-import com.dicoding.movie.model.Movie;
-import com.dicoding.movie.model.MovieResponse;
-import com.dicoding.movie.network.MovieData;
-import com.dicoding.movie.network.MovieDataCallback;
+import com.dicoding.movie.adapter.TvshowAdapter;
+import com.dicoding.movie.model.TvResponse;
+import com.dicoding.movie.model.TvShow;
+import com.dicoding.movie.network.TvData;
+import com.dicoding.movie.network.TvDataCallback;
 
 import java.util.ArrayList;
 
-public class TVShowFragment extends BaseFragment implements MovieDataCallback {
+public class TVShowFragment extends BaseFragment implements TvDataCallback {
 
-    private ArrayList<Movie> movies = new ArrayList<>();
-    private MovieAdapter movieAdapter;
+    private ArrayList<TvShow> tvShows = new ArrayList<>();
+    private TvshowAdapter tvshowAdapter;
 
     @Nullable
     @Override
@@ -34,24 +34,24 @@ public class TVShowFragment extends BaseFragment implements MovieDataCallback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        movieAdapter = new MovieAdapter(movies);
+        tvshowAdapter = new TvshowAdapter(tvShows);
         RecyclerView rvTvshow = view.findViewById(R.id.rvTVshow);
         rvTvshow.setHasFixedSize(true);
         rvTvshow.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvTvshow.setAdapter(movieAdapter);
+        rvTvshow.setAdapter(tvshowAdapter);
 
         if (savedInstanceState == null) {
-            getMovieData().getMovies(MovieData.URL_POPULAR, this);
+            getTvData().getTvShow(TvData.URL_POPULAR, this);
         } else {
-            movies = savedInstanceState.getParcelableArrayList(KEY_MOVIES);
-            movieAdapter.refill(movies);
+            tvShows = savedInstanceState.getParcelableArrayList(KEY_TV);
+            tvshowAdapter.refill(tvShows);
         }
     }
 
     @Override
-    public void onSuccess(MovieResponse movieResponse) {
-        movies = movieResponse.getResults();
-        movieAdapter.refill(movies);
+    public void onSuccess(TvResponse tvResponse) {
+        tvShows = tvResponse.getResultsTv();
+        tvshowAdapter.refill(tvShows);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class TVShowFragment extends BaseFragment implements MovieDataCallback {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putParcelableArrayList(KEY_MOVIES, movies);
+        outState.putParcelableArrayList(KEY_TV, tvShows);
         super.onSaveInstanceState(outState);
     }
 }

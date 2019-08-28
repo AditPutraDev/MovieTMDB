@@ -7,23 +7,20 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.dicoding.movie.BuildConfig;
-import com.dicoding.movie.model.MovieResponse;
+import com.dicoding.movie.model.TvResponse;
 
-public class MovieData {
-    public static final String URL_TOP_RATED = BuildConfig.BASE_URL_TMDB + "top_rated?api_key={apiKey}&language=en-US&page=1";
-    public static final String URL_NOW_PLAYING = BuildConfig.BASE_URL_TMDB+ "now_playing?api_key={apiKey}&language=en-US&page=1";
-    public static final String URL_UP_COMING = BuildConfig.BASE_URL_TMDB + "upcoming?api_key={apiKey}&language=en-US&page=1";
+public class TvData {
     public static final String URL_POPULAR = BuildConfig.BASE_URL_TV + "popular?api_key={apiKey}&language=en-US&page=1";
 
-    public void getMovies(String movieEndpoint, final MovieDataCallback callback) {
-        AndroidNetworking.get(movieEndpoint)
+    public void getTvShow(String tvEndpoint, final TvDataCallback callback) {
+        AndroidNetworking.get(tvEndpoint)
                 .addPathParameter("apiKey", BuildConfig.TMDB_API_KEY)
-                .setTag(MovieData.class)
+                .setTag(com.dicoding.movie.network.TvData.class)
                 .setPriority(Priority.IMMEDIATE)
                 .build()
-                .getAsObject(MovieResponse.class, new ParsedRequestListener<MovieResponse>() {
+                .getAsObject(TvResponse.class, new ParsedRequestListener<TvResponse>() {
                     @Override
-                    public void onResponse(MovieResponse response) {
+                    public void onResponse(TvResponse response) {
                         callback.onSuccess(response);
                     }
 

@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class MovieResponse {
+public class TvResponse {
     @SerializedName("results")
-    private ArrayList<Movie> results;
+    private ArrayList<TvShow> results;
 
-    public ArrayList<Movie> getResultsMovie() {
+    public ArrayList<TvShow> getResultsTv() {
         return results;
     }
 }

@@ -12,6 +12,7 @@ android {
 
         buildConfigField 'String', 'TMDB_API_KEY', "\"e2fafa1a7b1a8e2187b1ccd1f09c2679\""
         buildConfigField 'String', 'BASE_URL_TMDB', "\"https://api.themoviedb.org/3/movie/\""
+        buildConfigField 'String', 'BASE_URL_TV', "\"https://api.themoviedb.org/3/tv/\""
     }
     buildTypes {
         release {

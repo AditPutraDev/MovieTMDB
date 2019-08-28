@@ -14,6 +14,6 @@
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/items" />
+        tools:listitem="@layout/items_tv_shows" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

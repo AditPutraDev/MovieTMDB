@@ -51,7 +51,7 @@ public class MovieFragment extends BaseFragment implements MovieDataCallback {
 
     @Override
     public void onSuccess(MovieResponse movieResponse) {
-        movies = movieResponse.getResults();
+        movies = movieResponse.getResultsMovie();
         movieAdapter.refill(movies);
     }
 
