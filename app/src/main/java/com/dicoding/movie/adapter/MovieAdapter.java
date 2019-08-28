@@ -24,6 +24,11 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
 
     private ArrayList<Movie> movies;
+
+    public MovieAdapter(Context context) {
+        this.context = context;
+    }
+
     private Context context;
 
     public ArrayList<Movie> getMovies() {
