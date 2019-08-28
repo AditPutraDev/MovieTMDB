@@ -2,6 +2,7 @@ package com.dicoding.movie.activity;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import jp.wasabeef.picasso.transformations.BlurTransformation;
 public class MDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_MOVIE = "extra_movie";
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class MDetailActivity extends AppCompatActivity {
         Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
 
         if (movie != null) {
+            progressBar = findViewById(R.id.progress_circular);
             TextView tvTitle = findViewById(R.id.tvTitle);
             TextView tvOverview = findViewById(R.id.tvOverview);
             TextView tvRelease = findViewById(R.id.tvRelease);
