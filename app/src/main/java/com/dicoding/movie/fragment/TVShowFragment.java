@@ -4,17 +4,64 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.movie.R;
+import com.dicoding.movie.adapter.MovieAdapter;
+import com.dicoding.movie.model.Movie;
+import com.dicoding.movie.model.MovieResponse;
+import com.dicoding.movie.network.MovieData;
+import com.dicoding.movie.network.MovieDataCallback;
 
-public class TVShowFragment extends Fragment {
+import java.util.ArrayList;
+
+public class TVShowFragment extends BaseFragment implements MovieDataCallback {
+
+    private ArrayList<Movie> movies = new ArrayList<>();
+    private MovieAdapter movieAdapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_tvshow, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        movieAdapter = new MovieAdapter(movies);
+        RecyclerView rvTvshow = view.findViewById(R.id.rvTVshow);
+        rvTvshow.setHasFixedSize(true);
+        rvTvshow.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvTvshow.setAdapter(movieAdapter);
+
+        if (savedInstanceState == null) {
+            getMovieData().getMovies(MovieData.URL_POPULAR, this);
+        } else {
+            movies = savedInstanceState.getParcelableArrayList(KEY_MOVIES);
+            movieAdapter.refill(movies);
+        }
+    }
+
+    @Override
+    public void onSuccess(MovieResponse movieResponse) {
+        movies = movieResponse.getResults();
+        movieAdapter.refill(movies);
+    }
+
+    @Override
+    public void onFailed(String error) {
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelableArrayList(KEY_MOVIES, movies);
+        super.onSaveInstanceState(outState);
     }
 }

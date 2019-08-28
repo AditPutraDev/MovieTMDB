@@ -8,20 +8,11 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.dicoding.movie.MainViewModel;
 import com.dicoding.movie.R;
-import com.dicoding.movie.adapter.MovieAdapter;
 import com.dicoding.movie.fragment.MovieFragment;
 import com.dicoding.movie.fragment.TVShowFragment;
-import com.dicoding.movie.model.MovieItems;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    public ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,9 +51,18 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
+        progressBar = findViewById(R.id.progress_circular);
 
         if (savedInstanceState == null) {
             navView.setSelectedItemId(R.id.navigation_movie);
+        }
+    }
+
+    private void showLoading(Boolean state) {
+        if (state) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
         }
     }
 }
