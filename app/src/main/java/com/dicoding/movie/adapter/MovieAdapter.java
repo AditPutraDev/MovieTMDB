@@ -1,5 +1,7 @@
 package com.dicoding.movie.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.movie.R;
+import com.dicoding.movie.activity.MDetailActivity;
 import com.dicoding.movie.model.Movie;
 import com.squareup.picasso.Picasso;
 
@@ -21,6 +24,11 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
 
     private ArrayList<Movie> movies;
+    private Context context;
+
+    public ArrayList<Movie> getMovies() {
+        return movies;
+    }
 
     public MovieAdapter(ArrayList<Movie> movies) {
         this.movies = movies;
@@ -40,8 +48,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieHolder holder, final int position) {
         holder.onBind(movies.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MDetailActivity.class);
+                intent.putParcelableArrayListExtra("extra_movie", getMovies());
+                intent.putExtra("extra_movie", getMovies().get(position));
+                context.startActivities(new Intent[]{intent});
+            }
+        });
     }
 
     @Override

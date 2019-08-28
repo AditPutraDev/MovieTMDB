@@ -3,4 +3,5 @@
     <string name="title_movie">Movie</string>
     <string name="title_tv_show">TV Show</string>
     <string name="change_language_settings">Change Language Setting</string>
+    <string name="overview">Overview</string>
 </resources>

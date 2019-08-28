@@ -10,12 +10,6 @@ public class Movie implements Parcelable {
     @SerializedName("title")
     private String title;
 
-    @SerializedName("name")
-    private String name;
-
-    @SerializedName("first_air_date")
-    private String firstAirDate;
-
     @SerializedName("poster_path")
     private String posterPath;
 
@@ -34,8 +28,6 @@ public class Movie implements Parcelable {
         backdropPath = in.readString();
         releaseDate = in.readString();
         voteAverage = in.readDouble();
-        name = in.readString();
-        firstAirDate = in.readString();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -70,14 +62,6 @@ public class Movie implements Parcelable {
         return voteAverage;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getFirstAirDate() {
-        return firstAirDate;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -90,7 +74,5 @@ public class Movie implements Parcelable {
         parcel.writeString(backdropPath);
         parcel.writeString(releaseDate);
         parcel.writeDouble(voteAverage);
-        parcel.writeString(name);
-        parcel.writeString(firstAirDate);
     }
 }
