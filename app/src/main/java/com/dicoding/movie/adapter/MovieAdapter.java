@@ -1,5 +1,6 @@
 package com.dicoding.movie.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -23,13 +24,12 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder> {
 
-    private ArrayList<Movie> movies;
+    private ArrayList<Movie> movies = new ArrayList<>();
+    private Context context;
 
     public MovieAdapter(Context context) {
         this.context = context;
     }
-
-    private Context context;
 
     public ArrayList<Movie> getMovies() {
         return movies;

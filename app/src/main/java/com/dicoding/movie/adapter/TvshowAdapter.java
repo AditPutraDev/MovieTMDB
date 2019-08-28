@@ -1,5 +1,7 @@
 package com.dicoding.movie.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.movie.R;
+import com.dicoding.movie.activity.TvDetailActivity;
 import com.dicoding.movie.model.TvShow;
 import com.squareup.picasso.Picasso;
 
@@ -19,15 +22,25 @@ import jp.wasabeef.picasso.transformations.BlurTransformation;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 
 public class TvshowAdapter extends RecyclerView.Adapter<TvshowAdapter.TvHolder> {
-    private ArrayList<TvShow> listTv;
 
-    public TvshowAdapter(ArrayList<TvShow> listTv) {
-        this.listTv = listTv;
+    private ArrayList<TvShow> tvShows = new ArrayList<>();
+    private Context context;
+
+    public TvshowAdapter(Context context) {
+        this.context = context;
     }
 
-    public void refill(ArrayList<TvShow> listTv) {
-        this.listTv = new ArrayList<>();
-        this.listTv.addAll(listTv);
+    public ArrayList<TvShow> getTvShows() {
+        return tvShows;
+    }
+
+    public TvshowAdapter(ArrayList<TvShow> tvShows) {
+        this.tvShows = tvShows;
+    }
+
+    public void refill(ArrayList<TvShow> tvShows) {
+        this.tvShows = new ArrayList<>();
+        this.tvShows.addAll(tvShows);
         notifyDataSetChanged();
     }
 
@@ -39,13 +52,22 @@ public class TvshowAdapter extends RecyclerView.Adapter<TvshowAdapter.TvHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TvHolder holder, int position) {
-        holder.onBind(listTv.get(position));
+    public void onBindViewHolder(@NonNull TvHolder holder, final int position) {
+        holder.onBind(tvShows.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, TvDetailActivity.class);
+                intent.putParcelableArrayListExtra("extra_tvshow", getTvShows());
+                intent.putExtra("extra_tvshow", getTvShows().get(position));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return listTv.size();
+        return tvShows.size();
     }
 
     class TvHolder extends RecyclerView.ViewHolder {

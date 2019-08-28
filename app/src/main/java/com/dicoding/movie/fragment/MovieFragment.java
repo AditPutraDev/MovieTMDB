@@ -35,7 +35,7 @@ public class MovieFragment extends BaseFragment implements MovieDataCallback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        movieAdapter = new MovieAdapter(movies);
+        movieAdapter = new MovieAdapter(getContext());
         RecyclerView rvMovie = view.findViewById(R.id.rvMovies);
         rvMovie.setHasFixedSize(true);
         rvMovie.setLayoutManager(new LinearLayoutManager(getContext()));

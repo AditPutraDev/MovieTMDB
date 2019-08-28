@@ -34,7 +34,7 @@ public class TVShowFragment extends BaseFragment implements TvDataCallback {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvshowAdapter = new TvshowAdapter(tvShows);
+        tvshowAdapter = new TvshowAdapter(getContext());
         RecyclerView rvTvshow = view.findViewById(R.id.rvTVshow);
         rvTvshow.setHasFixedSize(true);
         rvTvshow.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -12,6 +12,9 @@ public class TvShow implements Parcelable {
     @SerializedName("first_air_date")
     private String firstAirDate;
 
+    @SerializedName("overview")
+    private String overview;
+
     @SerializedName("poster_path")
     private String posterPath;
 
@@ -27,6 +30,7 @@ public class TvShow implements Parcelable {
         posterPath = in.readString();
         backdropPath = in.readString();
         voteAverage = in.readDouble();
+        overview = in.readString();
     }
 
     public static final Creator<TvShow> CREATOR = new Creator<TvShow>() {
@@ -53,8 +57,17 @@ public class TvShow implements Parcelable {
         return voteAverage;
     }
 
-    public String getName() { return name; }
-    public String getFirstAirDate() { return firstAirDate; }
+    public String getName() {
+        return name;
+    }
+
+    public String getFirstAirDate() {
+        return firstAirDate;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
 
     @Override
     public int describeContents() {
@@ -68,5 +81,6 @@ public class TvShow implements Parcelable {
         parcel.writeString(posterPath);
         parcel.writeString(backdropPath);
         parcel.writeDouble(voteAverage);
+        parcel.writeString(overview);
     }
 }

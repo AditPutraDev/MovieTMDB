@@ -19,5 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MDetailActivity"></activity>
+        <activity android:name=".activity.TvDetailActivity"></activity>
     </application>
 </manifest>
