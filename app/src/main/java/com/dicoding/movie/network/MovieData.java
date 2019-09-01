@@ -1,5 +1,6 @@
 package com.dicoding.movie.network;
 
+
 import android.util.Log;
 
 import com.androidnetworking.AndroidNetworking;
@@ -7,7 +8,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.dicoding.movie.BuildConfig;
-import com.dicoding.movie.model.MovieResponse;
+import com.dicoding.movie.data.MovieResponse;
 
 public class MovieData {
     public static final String URL_NOW_PLAYING = BuildConfig.BASE_URL_TMDB + "now_playing?api_key={apiKey}&language=en-US&page=1";
@@ -32,3 +33,4 @@ public class MovieData {
                 });
     }
 }
+

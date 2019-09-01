@@ -1,14 +1,19 @@
-package com.dicoding.movie.model;
+package com.dicoding.movie.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Movie implements Parcelable {
+public class TvShow implements Parcelable {
+    @SerializedName("name")
+    private String name;
 
-    @SerializedName("title")
-    private String title;
+    @SerializedName("first_air_date")
+    private String firstAirDate;
+
+    @SerializedName("overview")
+    private String overview;
 
     @SerializedName("poster_path")
     private String posterPath;
@@ -16,39 +21,29 @@ public class Movie implements Parcelable {
     @SerializedName("backdrop_path")
     private String backdropPath;
 
-    @SerializedName("release_date")
-    private String releaseDate;
-
     @SerializedName("vote_average")
     private double voteAverage;
 
-    @SerializedName("overview")
-    private String overview;
-
-    Movie(Parcel in) {
-        title = in.readString();
+    TvShow(Parcel in) {
+        name = in.readString();
+        firstAirDate = in.readString();
         posterPath = in.readString();
         backdropPath = in.readString();
-        releaseDate = in.readString();
         voteAverage = in.readDouble();
         overview = in.readString();
     }
 
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+    public static final Creator<TvShow> CREATOR = new Creator<TvShow>() {
         @Override
-        public Movie createFromParcel(Parcel in) {
-            return new Movie(in);
+        public TvShow createFromParcel(Parcel in) {
+            return new TvShow(in);
         }
 
         @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
+        public TvShow[] newArray(int size) {
+            return new TvShow[size];
         }
     };
-
-    public String getTitle() {
-        return title;
-    }
 
     public String getPosterPath() {
         return "https://image.tmdb.org/t/p/w185/" + posterPath;
@@ -58,12 +53,16 @@ public class Movie implements Parcelable {
         return "https://image.tmdb.org/t/p/w185/" + backdropPath;
     }
 
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
     public double getVoteAverage() {
         return voteAverage;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getFirstAirDate() {
+        return firstAirDate;
     }
 
     public String getOverview() {
@@ -77,11 +76,12 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
+        parcel.writeString(name);
+        parcel.writeString(firstAirDate);
         parcel.writeString(posterPath);
         parcel.writeString(backdropPath);
-        parcel.writeString(releaseDate);
         parcel.writeDouble(voteAverage);
         parcel.writeString(overview);
     }
 }
+

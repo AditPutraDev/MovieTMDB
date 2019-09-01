@@ -1,6 +1,6 @@
 package com.dicoding.movie.network;
 
-import com.dicoding.movie.model.MovieResponse;
+import com.dicoding.movie.data.MovieResponse;
 
 public interface MovieDataCallback {
 

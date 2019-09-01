@@ -1,14 +1,13 @@
-package com.dicoding.movie.activity;
+package com.dicoding.movie.ui.detail;
 
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dicoding.movie.R;
-import com.dicoding.movie.model.TvShow;
+import com.dicoding.movie.data.TvShow;
 import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
@@ -16,7 +15,6 @@ import jp.wasabeef.picasso.transformations.BlurTransformation;
 public class TvDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_TV = "extra_tvshow";
-    public ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +24,6 @@ public class TvDetailActivity extends AppCompatActivity {
         TvShow tvShow = getIntent().getParcelableExtra(EXTRA_TV);
 
         if (tvShow != null) {
-            progressBar = findViewById(R.id.progress_circular);
             TextView tvName = findViewById(R.id.tvName);
             TextView tvOverview = findViewById(R.id.tvOverviewTv);
             TextView tvRelease = findViewById(R.id.tvReleaseTv);

@@ -1,4 +1,4 @@
-package com.dicoding.movie.adapter;
+package com.dicoding.movie.ui.movie;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.movie.R;
-import com.dicoding.movie.activity.MDetailActivity;
-import com.dicoding.movie.model.Movie;
+import com.dicoding.movie.data.Movie;
+import com.dicoding.movie.ui.detail.MDetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieHolder>
         this.context = context;
     }
 
-    public ArrayList<Movie> getMovies() {
+    private ArrayList<Movie> getMovies() {
         return movies;
     }
 

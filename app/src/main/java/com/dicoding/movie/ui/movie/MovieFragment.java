@@ -1,10 +1,11 @@
-package com.dicoding.movie.fragment;
+package com.dicoding.movie.ui.movie;
 
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,9 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.movie.R;
-import com.dicoding.movie.adapter.MovieAdapter;
-import com.dicoding.movie.model.Movie;
-import com.dicoding.movie.model.MovieResponse;
+import com.dicoding.movie.data.Movie;
+import com.dicoding.movie.data.MovieResponse;
 import com.dicoding.movie.network.MovieData;
 import com.dicoding.movie.network.MovieDataCallback;
 
@@ -25,6 +25,7 @@ public class MovieFragment extends BaseFragment implements MovieDataCallback {
 
     private ArrayList<Movie> movies = new ArrayList<>();
     private MovieAdapter movieAdapter;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -40,6 +41,7 @@ public class MovieFragment extends BaseFragment implements MovieDataCallback {
         rvMovie.setHasFixedSize(true);
         rvMovie.setLayoutManager(new LinearLayoutManager(getContext()));
         rvMovie.setAdapter(movieAdapter);
+        progressBar = view.findViewById(R.id.progress_circular);
 
         if (savedInstanceState == null) {
             getMovieData().getMovies(MovieData.URL_NOW_PLAYING, this);
@@ -51,12 +53,14 @@ public class MovieFragment extends BaseFragment implements MovieDataCallback {
 
     @Override
     public void onSuccess(MovieResponse movieResponse) {
+        progressBar.setVisibility(View.GONE);
         movies = movieResponse.getResultsMovie();
         movieAdapter.refill(movies);
     }
 
     @Override
     public void onFailed(String error) {
+        progressBar.setVisibility(View.VISIBLE);
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 

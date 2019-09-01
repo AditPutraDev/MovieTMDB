@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MDetailActivity"></activity>
-        <activity android:name=".activity.TvDetailActivity"></activity>
+        <activity android:name=".ui.detail.MDetailActivity"></activity>
+        <activity android:name=".ui.detail.TvDetailActivity"></activity>
     </application>
 </manifest>

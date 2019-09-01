@@ -5,4 +5,5 @@
     <string name="change_language_settings">Change Language Setting</string>
     <string name="overview">Overview</string>
     <string name="release">Release</string>
+    <string name="favorite">Favorite</string>
 </resources>

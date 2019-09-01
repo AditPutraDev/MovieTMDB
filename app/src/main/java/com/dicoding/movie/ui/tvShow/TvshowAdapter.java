@@ -1,4 +1,4 @@
-package com.dicoding.movie.adapter;
+package com.dicoding.movie.ui.tvShow;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.movie.R;
-import com.dicoding.movie.activity.TvDetailActivity;
-import com.dicoding.movie.model.TvShow;
+import com.dicoding.movie.data.TvShow;
+import com.dicoding.movie.ui.detail.TvDetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

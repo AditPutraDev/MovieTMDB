@@ -1,4 +1,4 @@
-package com.dicoding.movie.model;
+package com.dicoding.movie.data;
 
 import com.google.gson.annotations.SerializedName;
 
